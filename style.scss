@@ -1,0 +1,99 @@
+
+@import "convert.scss";
+@import "variables.scss";
+
+
+@mixin article-card($color, $border-color, $font-size: toRem($value) ){
+    color: $color;
+    border-color: $border-color;
+    font-size: $font-size;
+}
+
+$sizes: (
+    size1: 1rem,
+    size2: 2rem,
+    size3: 3rem,
+);
+
+@each $size, $value in $sizes {
+    .fs-#{$value} {
+        font-size: $value;
+    }
+}
+
+$bg: white;
+
+@for $var from 1 through 19 {
+    .numbers div:nth-child(#{$var}) {
+        background: darken(white, $var * 5%);
+        color: lighten(black, $var * 5%);
+        @if $var == 10 {
+            background: blue;
+            color: red;
+        }
+    }
+}
+
+.numbers {
+    display: flex;
+    justify-content: space-between;
+    & div {
+        width: toRem(45);
+        height: toRem(45);
+        border: toRem(2) solid $color-primary;
+        margin: toRem(5) 0;
+    }
+}
+
+.exercise {   
+    
+    border: toRem(1) solid $color-primary;
+    .header{
+        display: flex;
+        flex-direction: column;
+        &>.exercise-title {
+            color: $color-tertiary;
+            text-decoration: underline;
+            text-decoration-color: $color-secondary;
+            text-decoration-thickness: toRem(1);
+            text-align: center;
+            text-underline-offset: toRem(8);
+        }
+
+        &>h2 {
+            @extend .exercise-title;
+            text-decoration: none;
+            padding: 1rem;
+            border: 1px solid $color-primary;
+            align-self: center;
+        }    
+        }
+    
+    section {
+        display: flex;
+        margin: toRem(20);
+        &>article {
+            border: toRem(1) solid $color-tertiary;
+            padding: toRem(15);
+            text-align: center;
+        }
+     
+        &.main article {
+            &:nth-child(odd) {
+                p {
+                    @include article-card($color-secondary, none, toRem(16));
+                }   
+            }
+            &:nth-child(even) {
+                p {
+                    @include article-card($color-primary, none, toRem(16));
+                }
+            }    
+        } 
+        & .footer {
+        @include article-card($color-tertiary, $color-secondary, toRem(24));
+        width: 100%;
+        
+        }
+    }
+}
